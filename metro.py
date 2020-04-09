@@ -33,7 +33,7 @@ def get_content(html):
     for item in items:
         categ = item.find('span', class_ ="title").get_text(strip = True).split(' ')[0]
         title = item.find('span', class_ = "title").get_text(strip = True)
-        link = HOST + item.find('a', class_="catalog-i_link").get('href')
+        link = item.find('a', class_="catalog-i_link").get('href')
         pricerub = item.find('div', class_ = 'item-price').find('span', class_='int')
         if pricerub != None:
             pricerub=pricerub.get_text().replace(' ', '')
