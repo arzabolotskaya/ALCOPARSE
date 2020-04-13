@@ -23,17 +23,18 @@ class ProgHubParser(object):
         links = self.get_all_links()
         all_alkogol = []
         for link in links:
-        
             pages = self.get_all_pages(link)
             print(f'parsing page 1 from {pages}')
             alkogol = self.parse_content_page(link)
             all_alkogol.extend(alkogol)
+            print(alkogol)
             if pages != 1:
                 for i in range (pages-1):
                     print(f'parsing page {i+2} from {pages}')
                     next_page = self.driver.find_element_by_class_name("pag_arrow_right").find_element_by_tag_name("a").get_attribute("href")
                     alkogol = self.parse_content_page(next_page)
                     all_alkogol.extend(alkogol)
+                    print(alkogol)
         return all_alkogol
 
     def parse_content_page(self, url):
@@ -70,20 +71,18 @@ class ProgHubParser(object):
             item = str(content)
             row = item.split(",")
             
+            print(row)
             alkogol.append({
                 'type' : row[0],
-                'title' : row[1],
-                'link': row[2],
-                'price': row[3],
+                'title' : row[-4],
+                'link': row[-3],
+                'price': row[-2],
                 'sale' : " ",
-                'availability': row[4] 
+                'availability': row[-1] 
                 })
         return alkogol 
 
         
-
-
-
     def get_all_pages(self, url):
         self.driver.get(url)
         print(url)
@@ -137,3 +136,40 @@ def save_file(items, path):
             writer.writerow([item['type'], item['title'], item['link'], item['price'], item['sale'], item['availability']]) #!
 
 print(main())
+
+
+
+
+
+
+
+
+
+
+def fill_content_category(self, content):
+    try:
+        content_category_elm = self.driver.find_element_by_class_name("cont_right_col").find_element_by_tag_name("h1")
+        content.category = content_category_elm.text
+    except NoSuchElementException:
+        print("product category missing")
+
+def fill_content_name(self, content):
+    try:
+        content_name_elm = card.find_element_by_class_name("product_item_name").find_element_by_tag_name("a")
+        content.name = content_name_elm.text
+    except NoSuchElementException:
+        print("product name missing")
+
+def fill_content_link(self, content):
+    try:
+        content_link_elm = self.driver.find_element_by_class_name("product_item_name").find_element_by_tag_name("a").get_attribute('href')
+        content.link = content_link_elm
+    except NoSuchElementException:
+        print("product дштл missing")
+
+def fill_content_price(self, content):
+    try:
+        content_price_elm = self.driver.find_element_by_class_name("i_price").find_element_by_tag_name("div")
+        content.price = content_price_elm.text
+    except NoSuchElementException:
+        pass
