@@ -74,9 +74,9 @@ class ProgHubParser(object):
             print(row)
             alkogol.append({
                 'type' : row[0],
-                'title' : row[-4],
-                'link': row[-3],
-                'price': row[-2],
+                'title' : row[-5],
+                'link': row[-4],
+                'price': row[-3],
                 'sale' : " ",
                 'availability': row[-1] 
                 })
@@ -143,33 +143,3 @@ print(main())
 
 
 
-
-
-
-def fill_content_category(self, content):
-    try:
-        content_category_elm = self.driver.find_element_by_class_name("cont_right_col").find_element_by_tag_name("h1")
-        content.category = content_category_elm.text
-    except NoSuchElementException:
-        print("product category missing")
-
-def fill_content_name(self, content):
-    try:
-        content_name_elm = card.find_element_by_class_name("product_item_name").find_element_by_tag_name("a")
-        content.name = content_name_elm.text
-    except NoSuchElementException:
-        print("product name missing")
-
-def fill_content_link(self, content):
-    try:
-        content_link_elm = self.driver.find_element_by_class_name("product_item_name").find_element_by_tag_name("a").get_attribute('href')
-        content.link = content_link_elm
-    except NoSuchElementException:
-        print("product дштл missing")
-
-def fill_content_price(self, content):
-    try:
-        content_price_elm = self.driver.find_element_by_class_name("i_price").find_element_by_tag_name("div")
-        content.price = content_price_elm.text
-    except NoSuchElementException:
-        pass
