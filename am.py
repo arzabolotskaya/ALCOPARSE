@@ -126,6 +126,13 @@ def unify_price(raw_price):
     return int(clean_price)
 
 
+def save_file(items, path):
+    with open(path, 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file, delimiter=';')
+        writer.writerow(['Вид', 'Наименование', "Ссылка", "Цена", "Старая цена", "Наличие"]) #!
+        for item in items:
+            writer.writerow([item['type'], item['title'], item['link'], item['price'], item['sale'], item['availability']]) #!
+
 
 
 def main():
@@ -138,49 +145,6 @@ def main():
     save_file(all_alkogol, PATH)
 
 
-
-def save_file(items, path):
-    with open(path, 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file, delimiter=';')
-        writer.writerow(['Вид', 'Наименование', "Ссылка", "Цена", "Старая цена", "Наличие"]) #!
-        for item in items:
-            writer.writerow([item['type'], item['title'], item['link'], item['price'], item['sale'], item['availability']]) #!
-
 print(main())
 
 
-
-
-
-
-
-
-
-
-def fill_content_category(self, content):
-    try:
-        content_name_elm = card.find_element_by_class_name("catalog-list-item articles-selector js-catalog-item").get_attribute("data-category")
-        content.category = content_category_elm.text
-    except NoSuchElementException:
-        print("product category missing")
-
-def fill_content_name(self, content):
-    try:
-        content_name_elm = card.find_element_by_class_name("catalog-list-item articles-selector js-catalog-item").get_attribute("data-name")
-        content.name = content_name_elm.text
-    except NoSuchElementException:
-        print("product name missing")
-
-def fill_content_link(self, content):
-    try:
-        content_name_elm = card.find_element_by_class_name("catalog-list-item__image js-product-detail-link").get_attribute("href")
-        content.link = content_link_elm
-    except NoSuchElementException:
-        print("product link missing")
-
-def fill_content_price(self, content):
-    try:
-        content_name_elm = card.find_element_by_class_name("catalog-list-item articles-selector js-catalog-item").get_attribute("data-price")
-        content.price = content_price_elm.text
-    except NoSuchElementException:
-        pass
