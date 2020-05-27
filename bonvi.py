@@ -1,28 +1,25 @@
 import csv
-#from datetime import datetime
 import requests 
 from bs4 import BeautifulSoup
 import re
 
 
-URL = 'https://bristol.ru/catalog/pivo/'
+URL = 'https://bonvi.ru/napitki/'
 HEADERS = {"user-agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36", "accept" : "*/*"} 
-HOST = 'https://bristol.ru/'
-PATH = r'Documents\прога питон 1\прога проект парсер\bristol.csv' #r нужен так как иначе включается экранирование и \b читается как \x08
+HOST = 'https://bonvi.ru/'
+PATH = r'Documents\прога питон 1\прога проект парсер\bonvi.csv' #r нужен так как иначе включается экранирование и \b читается как \x08
 
 def remove_html_tags(text):
-    #Если надо достать текст между html тегами другим способом
     clean = re.compile('<.*?>')
     return re.sub(clean, '', text)
 
 def unify_price(raw_price):
-    #Если надо представить цены в виде числа
     clean_price = ''.join(x for x in raw_price if x.isdigit())
     return int(clean_price)
 
 def get_html(url, params = None):
-    r = requests.get(url, headers=HEADERS, params = params) #response = urllib.requests.urlopen(url)
-    return r #response.text
+    r = requests.get(url, headers=HEADERS, params = params) 
+    return r 
 
 def get_all_links(html):
     soup = BeautifulSoup(html, 'html.parser')
